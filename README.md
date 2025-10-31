@@ -1,74 +1,77 @@
 # Ollama MCP Server
 
-Ein vollständiger Model Context Protocol (MCP) Server für Ollama mit **28 Tools**, der es ermöglicht, Ollama-Modelle über das MCP-Protokoll zu nutzen.
+A complete Model Context Protocol (MCP) Server for Ollama with **28 tools**, enabling the use of Ollama models via the MCP protocol.
 
 ## Features
 
-- ✅ **28 vollständige Tools** für alle Ollama-Funktionen
-- ✅ **Streaming-Unterstützung** für Chat und Text-Generierung
-- ✅ **Modell-Management** (Pull, Delete, Copy, Create, Update)
-- ✅ **Embedding-Generierung** (Single & Batch)
-- ✅ **Context-Management** für Multi-Turn Conversations
-- ✅ **Batch-Operationen** für effiziente Verarbeitung
-- ✅ **System-Monitoring** und Health-Checks
-- ✅ **Remote-Zugriff** über 0.0.0.0:4838
+- ✅ **28 complete tools** for all Ollama functions
+- ✅ **Streaming support** for chat and text generation
+- ✅ **Model management** (Pull, Delete, Copy, Create, Update)
+- ✅ **Embedding generation** (Single & Batch)
+- ✅ **Context management** for multi-turn conversations
+- ✅ **Batch operations** for efficient processing
+- ✅ **System monitoring** and health checks
+- ✅ **Remote access** via 0.0.0.0:4838
 
 ## Installation
 
-### Voraussetzungen
+### Prerequisites
 
-- Python 3.10 oder höher
-- Ollama installiert und laufend
-- Mindestens ein Ollama-Modell (z.B. `ollama pull llama2`)
+- Python 3.10 or higher
+- Ollama installed and running
+- At least one Ollama model (e.g., `ollama pull llama2`)
 
 ### Installation
 
-1. **Repository klonen oder Dateien extrahieren**
+1. **Clone repository or extract files**
 
-2. **Virtual Environment erstellen**:
+2. **Create virtual environment**:
 ```bash
 python -m venv venv
-source venv/bin/activate  # Auf Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. **Abhängigkeiten installieren**:
+3. **Install dependencies**:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Konfiguration anpassen** (optional):
+4. **Adjust configuration** (optional):
 ```bash
-cp .env.example .env
-# .env bearbeiten falls nötig
+cp env.example .env
+# Edit .env if needed
 ```
 
-## Verwendung
+## Usage
 
-### Server starten
+### Start Server
 
 ```bash
-# Direkt
+# Direct
 python -m mcp_server.server
 
-# Oder mit uvicorn
+# Or with start script
+./start.sh
+
+# Or with uvicorn
 uvicorn mcp_server.server:app --host 0.0.0.0 --port 4838
 ```
 
-Der Server läuft standardmäßig auf **0.0.0.0:4838**.
+The server runs by default on **0.0.0.0:4838**.
 
-### API-Endpunkte
+### API Endpoints
 
-#### Health-Check
+#### Health Check
 ```bash
 curl http://localhost:4838/health
 ```
 
-#### Tools auflisten
+#### List Tools
 ```bash
 curl -X POST http://localhost:4838/mcp/tools/list
 ```
 
-#### Tool aufrufen
+#### Call Tool
 ```bash
 curl -X POST http://localhost:4838/mcp/tools/call \
   -H "Content-Type: application/json" \
@@ -90,59 +93,59 @@ curl -X POST http://localhost:4838/rpc \
   }'
 ```
 
-## Verfügbare Tools
+## Available Tools
 
-### Modell-Verwaltung
-- `ollama_list_models` - Listet alle Modelle auf
-- `ollama_show_model` - Zeigt Modell-Details
-- `ollama_pull_model` - Lädt Modell herunter
-- `ollama_delete_model` - Löscht Modell
-- `ollama_copy_model` - Kopiert Modell
-- `ollama_create_model` - Erstellt Modell aus Modelfile
+### Model Management
+- `ollama_list_models` - Lists all models
+- `ollama_show_model` - Shows model details
+- `ollama_pull_model` - Downloads model
+- `ollama_delete_model` - Deletes model
+- `ollama_copy_model` - Copies model
+- `ollama_create_model` - Creates model from modelfile
 
-### Text-Generierung
-- `ollama_generate` - Generiert Text
-- `ollama_generate_stream` - Streaming-Generierung
+### Text Generation
+- `ollama_generate` - Generates text
+- `ollama_generate_stream` - Streaming generation
 
-### Chat-Funktionen
-- `ollama_chat` - Chat-Kompletierung
-- `ollama_chat_stream` - Streaming-Chat
+### Chat Functions
+- `ollama_chat` - Chat completion
+- `ollama_chat_stream` - Streaming chat
 
 ### Embeddings
-- `ollama_embeddings` - Embeddings generieren
-- `ollama_create_embeddings` - Batch-Embeddings
+- `ollama_embeddings` - Generate embeddings
+- `ollama_create_embeddings` - Batch embeddings
 
 ### System & Monitoring
-- `ollama_check_health` - Health-Check
-- `ollama_get_version` - Ollama-Version
-- `ollama_list_processes` - Laufende Prozesse
-- `ollama_get_models_info` - Alle Modell-Infos
+- `ollama_check_health` - Health check
+- `ollama_get_version` - Ollama version
+- `ollama_list_processes` - Running processes
+- `ollama_get_models_info` - All model info
 
-### Weitere Tools
-- `ollama_update_model` - Modell aktualisieren
-- `ollama_get_modelfile` - Modelfile abrufen
-- `ollama_validate_model` - Modell validieren
-- `ollama_get_model_size` - Modell-Größe
-- `ollama_search_models` - Modelle durchsuchen
-- `ollama_check_blobs` - Blob-Status
-- `ollama_save_context` - Kontext speichern
-- `ollama_load_context` - Kontext laden
-- `ollama_clear_context` - Kontext löschen
-- `ollama_batch_generate` - Batch-Generierung
-- `ollama_compare_models` - Modelle vergleichen
+### Additional Tools
+- `ollama_update_model` - Update model
+- `ollama_get_modelfile` - Get modelfile
+- `ollama_validate_model` - Validate model
+- `ollama_get_model_size` - Model size
+- `ollama_search_models` - Search models
+- `ollama_check_blobs` - Blob status
+- `ollama_save_context` - Save context
+- `ollama_load_context` - Load context
+- `ollama_clear_context` - Clear context
+- `ollama_batch_generate` - Batch generation
+- `ollama_compare_models` - Compare models
 
-## Konfiguration
+## Configuration
 
-### Umgebungsvariablen
+### Environment Variables
 
-Erstellen Sie eine `.env` Datei:
+Create a `.env` file:
 
 ```env
-# MCP Server Konfiguration
+# MCP Server Configuration
 MCP_HOST=0.0.0.0
 MCP_PORT=4838
 
-# Ollama API Konfiguration
+# Ollama API Configuration
 OLLAMA_HOST=localhost
 OLLAMA_PORT=11434
 OLLAMA_TIMEOUT=60
@@ -152,9 +155,9 @@ LOG_LEVEL=INFO
 LOG_FORMAT=json
 ```
 
-### Firewall-Konfiguration
+### Firewall Configuration
 
-Für Remote-Zugriff muss Port 4838 geöffnet werden:
+For remote access, port 4838 must be opened:
 
 ```bash
 # UFW (Ubuntu/Debian)
@@ -165,14 +168,14 @@ sudo firewall-cmd --add-port=4838/tcp --permanent
 sudo firewall-cmd --reload
 ```
 
-## Beispiel-Verwendung
+## Example Usage
 
 ### Python Client
 
 ```python
 import httpx
 
-# Tool aufrufen
+# Call tool
 async with httpx.AsyncClient() as client:
     response = await client.post(
         "http://localhost:4838/mcp/tools/call",
@@ -180,16 +183,16 @@ async with httpx.AsyncClient() as client:
             "name": "ollama_generate",
             "arguments": {
                 "model": "llama2",
-                "prompt": "Erkläre mir Python in einem Satz.",
+                "prompt": "Explain Python in one sentence.",
             }
         }
     )
     print(response.json())
 ```
 
-### cURL Beispiele
+### cURL Examples
 
-#### Text generieren
+#### Generate Text
 ```bash
 curl -X POST http://localhost:4838/mcp/tools/call \
   -H "Content-Type: application/json" \
@@ -197,7 +200,7 @@ curl -X POST http://localhost:4838/mcp/tools/call \
     "name": "ollama_generate",
     "arguments": {
       "model": "llama2",
-      "prompt": "Was ist Machine Learning?"
+      "prompt": "What is Machine Learning?"
     }
   }'
 ```
@@ -211,66 +214,66 @@ curl -X POST http://localhost:4838/mcp/tools/call \
     "arguments": {
       "model": "llama2",
       "messages": [
-        {"role": "user", "content": "Hallo!"}
+        {"role": "user", "content": "Hello!"}
       ]
     }
   }'
 ```
 
-## Projektstruktur
+## Project Structure
 
 ```
 RL-MCP Server/
 ├── src/
 │   └── mcp_server/
 │       ├── __init__.py
-│       ├── server.py          # Haupt-Server
-│       ├── client.py          # Ollama API Client
-│       ├── config.py          # Konfiguration
-│       ├── handlers.py        # Tool-Handler
+│       ├── server.py          # Main server
+│       ├── client.py          # Ollama API client
+│       ├── config.py          # Configuration
+│       ├── handlers.py        # Tool handlers
 │       ├── exceptions.py      # Exceptions
 │       └── utils/             # Utilities
 ├── tests/                      # Tests
+├── examples/                   # Examples
 ├── requirements.txt           # Dependencies
-├── pyproject.toml            # Projekt-Konfiguration
-└── README.md                 # Diese Datei
+├── pyproject.toml            # Project configuration
+├── README_DE.md              # German version
+├── README_EN.md              # This file
+└── LICENSE                   # License
 ```
 
-## Entwicklung
+## Development
 
-### Tests ausführen
+### Run Tests
 
 ```bash
 pytest
 ```
 
-### Code-Formatierung
+### Code Formatting
 
 ```bash
 black src/
 ruff check src/
 ```
 
-## Lizenz
+## License
 
-Siehe [LICENSE](LICENSE) Datei.
+See [LICENSE](LICENSE) file.
 
-Copyright © 2024 Robin Oliver Lucas
-
-## Autor
+## Author
 
 **Robin Oliver Lucas**
 - Website: https://rl-dev.de
 - Email: robin@rl-dev.de
 
-## Unterstützung
+## Support
 
-Bei Fragen oder Problemen erstellen Sie bitte ein Issue oder kontaktieren Sie den Autor.
+For questions or issues, please create an issue or contact the author.
 
-## Weitere Informationen
+## Additional Information
 
-- [Deutsches README](README_DE.md)
-- [Englisches README](README_EN.md)
-- [Installationsanleitung](INSTALL.md)
-- [Plan & Architektur](PLAN.md)
+- [Installation Guide](INSTALL.md)
+- [Plan & Architecture](PLAN.md)
+- [Checklist](CHECKLIST.md)
 
