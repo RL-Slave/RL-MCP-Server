@@ -1,0 +1,24 @@
+# MCP Protocol
+mcp>=0.1.0
+
+# HTTP Server für MCP
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# HTTP Client für Ollama API
+httpx>=0.25.0
+aiohttp>=3.9.0
+
+# Datenvalidierung
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Konfiguration
+python-dotenv>=1.0.0
+
+# Logging
+structlog>=23.0.0
+
+# Utilities
+typing-extensions>=4.8.0
+
